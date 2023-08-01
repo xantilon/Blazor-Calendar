@@ -17,4 +17,18 @@ public sealed class Tasks
     public DateTime DateEnd { get; set; }
     public bool NotBeDraggable { get; set; }
 	public int Type { get; set; }
+
+    public string GetTaskContent(PriorityLabel priorityLabel)
+    {
+        if(priorityLabel == PriorityLabel.Code)
+        {
+            return string.IsNullOrWhiteSpace(Code) ? Caption : Code;
+        }
+        else
+        {
+            return string.IsNullOrWhiteSpace(Caption) ? Code : Caption;
+        }
+    }
+
+    public bool IncludesDay(DateTime day) => DateStart <= day && DateEnd >= day;
 }

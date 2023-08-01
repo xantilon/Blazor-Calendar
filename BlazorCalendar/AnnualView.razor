@@ -83,9 +83,9 @@
                     tasksCounter = 0;    
                     ondragover = "event.preventDefault();";
                     borderStyle = "";
-                    if ( TasksList != null )
+                    if (TasksList.Any())
                     {
-                        for (var k = 0; k < TasksList.Length; k++)
+                        for (var k = 0; k < TasksList.Count; k++)
                         {
                             Tasks t = TasksList[k];
 
@@ -139,12 +139,16 @@
                     <div class="day" style="@CSSbackground">
                         @labelDay
                     </div>
-                    <div id="task-@taskID" class="@($"task{classPin}{classPointer} {borderStyle}")" style="@taskColor" title="@taskComment" 
+                    @*<div id="task-@taskID" class="@($"task{classPin}{classPointer} {borderStyle}")" style="@taskColor" title="@taskComment" 
                         @onclick="e => ClickInternal(e, j)" 
                         @ondragstart="() => HandleDragStart(j, taskID)"
                         draggable="@draggable.ToString()" >
                             @taskContent
-                    </div>
+                    </div>*@
+                    @foreach (var t in TasksList.Where(t=>t.IncludesDay(j)))
+					{
+						<AnnualTask PriorityDisplay="PriorityDisplay" t="t" j="j"/>
+					}
                 </div>  
             }
         </div>

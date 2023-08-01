@@ -1,0 +1,39 @@
+﻿@using BlazorCalendar.Models;
+@using BlazorCalendar.Styles;
+
+<div id="task-@t.ID" class="@($"task {classPin} {classPointer} {borderStyle}")" 
+    style="@taskColor" title="@t.Comment">
+    @*@onclick="e => ClickInternal(e, j)"
+    @ondragstart="() => HandleDragStart(j, t.ID)"
+    draggable="@draggable.ToString()"*@
+    @taskContent
+</div>
+
+@code {
+    [Parameter]
+    public Tasks t { get; set; } = new();
+
+    [Parameter]
+    public DateTime j { get; set; } = new();
+
+    [Parameter]
+    public PriorityLabel PriorityDisplay { get; set; } = PriorityLabel.Code;
+
+    string? classPin => string.IsNullOrWhiteSpace(t.Comment) ? null : "pin";
+    string classPointer = "cursor-pointer";
+
+    string taskContent => t.GetTaskContent(PriorityDisplay);
+    string? fillStyle => Colors.GetHatching(t.FillStyle, t.Color);
+    string taskColor => $"{fillStyle};color:{t.ForeColor}";
+
+    string borderStyle => GetBorderStyle(t,j);
+
+    string GetBorderStyle(Tasks t, DateTime j)
+    {
+        string style = (t.DateStart.Date == j.Date) ? " border-top " : " ";
+        style += (t.DateEnd.Date == j.Date) ? "border-bottom" : "";
+        return style;
+    }
+
+    //NotbeDraggeble = t.NotBeDraggable;
+}

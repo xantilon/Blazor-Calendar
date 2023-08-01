@@ -39,9 +39,9 @@ partial class AnnualView : CalendarBase
             _firstdate = value;
         }
     }
-    
+
     [CascadingParameter(Name = "TasksList")]
-    public Tasks[]? TasksList { get; set; }
+    public List<Tasks> TasksList { get; set; }
 
 
     [Parameter]
@@ -70,27 +70,17 @@ partial class AnnualView : CalendarBase
         if (day == default) return;
 
         // There can be several tasks in one day :
-        List<int> listID = new();
-        if (TasksList != null )
-        {
-            for (var k = 0; k < TasksList.Length; k++)
-            {
-                Tasks t = TasksList[k];
+        List<int> taskIDlist = TasksList.Where(t => t.IncludesDay(day))
+                                        .Select(t=>t.ID)
+                                        .ToList();        
 
-                if (t.DateStart.Date <= day.Date && day.Date <= t.DateEnd.Date)
-                {
-                    listID.Add(t.ID);
-                }
-            }
-        }
-
-        if (listID.Count > 0)
+        if (taskIDlist.Any())
         {
             if (TaskClick.HasDelegate)
 			{
 				ClickTaskParameter clickTaskParameter = new()
 				{
-					IDList = listID,
+					IDList = taskIDlist,
 					X = e.ClientX,
 					Y = e.ClientY,
 					Day = day

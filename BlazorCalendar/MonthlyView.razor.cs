@@ -25,7 +25,7 @@ partial class MonthlyView : CalendarBase
     }
 
     [CascadingParameter(Name = "TasksList")]
-    public Tasks[]? TasksList { get; set; }
+    public List<Tasks> TasksList { get; set; } = new();
 
     [Parameter]
     public PriorityLabel PriorityDisplay { get; set; } = PriorityLabel.Code;
@@ -96,7 +96,7 @@ partial class MonthlyView : CalendarBase
 		List<int> listID = new();
         if (TasksList != null)
         {
-            for (var k = 0; k < TasksList.Length; k++)
+            for (var k = 0; k < TasksList.Count; k++)
             {
                 Tasks t = TasksList[k];
 

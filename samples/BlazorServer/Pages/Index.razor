@@ -21,7 +21,7 @@
 </div>
 
 
-<CalendarContainer FirstDate="today" TasksList="TasksList.ToArray()"  DisplayedView="DisplayedView.Annual" >
+<CalendarContainer FirstDate="today" TasksList="TasksList"  DisplayedView="DisplayedView.Annual" >
 	<AnnualView Months="months" Style="height:80vh"  
 				PriorityDisplay="@PriorityDisplay"
 				HeaderClick="HeaderClick"
@@ -36,21 +36,30 @@
 @code{
 	private DateTime today = DateTime.Today;  
 	private int months = 12;
-	private List<Tasks> TasksList;
+	private List<Tasks> TasksList = new();
 	private string fakeConsole = "";
 	private BlazorCalendar.PriorityLabel PriorityDisplay = PriorityLabel.Code;
 	private bool draggable = true;
 
 	protected override void OnInitialized()
 	{
+		int i = 0;
 		TasksList = new()
 		{
-			new Tasks { ID = 1, DateStart = today.AddDays(8), DateEnd = today.AddDays(8), Code = "CP", Color = "#19C319", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.CrossDots },
-			new Tasks { ID = 2, DateStart = today.AddDays(50), DateEnd = today.AddDays(52), Code = "DEV", Color = "#FFD800", Comment="on Teams template", Caption = "Fusce quis purus eu ante", FillStyle=BlazorCalendar.FillStyleEnum.ZigZag },
-			new Tasks { ID = 3, DateStart = today.AddDays(40), DateEnd = today.AddDays(41), Code = "FORM", Color = "#FFC3FF", ForeColor = "#FF0000", Caption = "Lorem ipsum dolor sit amet" },
-			new Tasks { ID = 4, DateStart = today.AddDays(62), DateEnd = today.AddDays(62), Code = "DEV", Color = "#FFD800" },
-			new Tasks { ID = 5, DateStart = today.AddDays(62), DateEnd = today.AddDays(62), Code = "FORM", Color = "#FFC3FF", Caption = "Ut sit amet turpis eget" } ,
-			new Tasks { ID = 6, DateStart = today.AddDays(73).AddHours(8), DateEnd = today.AddDays(73).AddHours(9), Code = "MEETING", Color = "#2DD7D7", Comment="Julien's test" }
+			new Tasks { ID = ++i, DateStart = today.AddDays(8), DateEnd = today.AddDays(8), Code = "CP", Color = "#19C319", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.CrossDots },
+			new Tasks { ID = ++i, DateStart = today.AddDays(50), DateEnd = today.AddDays(52), Code = "DEV", Color = "#FFD800", Comment="on Teams template", Caption = "Fusce quis purus eu ante", FillStyle=BlazorCalendar.FillStyleEnum.ZigZag },
+			new Tasks { ID = ++i, DateStart = today.AddDays(40), DateEnd = today.AddDays(41), Code = "FORM", Color = "#FFC3FF", ForeColor = "#FF0000", Caption = "Lorem ipsum dolor sit amet" },
+			new Tasks { ID = ++i, DateStart = today.AddDays(62), DateEnd = today.AddDays(62), Code = "DEV", Color = "#FFD800" },
+			new Tasks { ID = ++i, DateStart = today.AddDays(62), DateEnd = today.AddDays(62), Code = "FORM", Color = "#FFC3FF", Caption = "Ut sit amet turpis eget" } ,
+			new Tasks { ID = ++i, DateStart = today.AddDays(73).AddHours(8), DateEnd = today.AddDays(73).AddHours(9), Code = "MEETING", Color = "#2DD7D7", Comment="Julien's test" },
+							 
+			new Tasks { ID = ++i, DateStart = today.AddDays(8), DateEnd = today.AddDays(8), Code = "EH U full accepted", Color = "#19C319", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.Fill },
+			new Tasks { ID = ++i, DateStart = today.AddDays(9), DateEnd = today.AddDays(9), Code = "EH U half accepted", Color = "#9bffc2", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.Fill },
+			new Tasks { ID = ++i, DateStart = today.AddDays(10), DateEnd = today.AddDays(10), Code = "EH U half planned", Color = "#9bffc2", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.ZigZag },
+			new Tasks { ID = ++i, DateStart = today.AddDays(11), DateEnd = today.AddDays(11), Code = "EH U half requested", Color = "#9bffc2", Caption = "Lorem ipsum dolor sit amet", FillStyle=BlazorCalendar.FillStyleEnum.CrossDots },
+			new Tasks { ID = ++i, DateStart = today.AddDays(50), DateEnd = today.AddDays(52), Code = "DEV", Color = "#FFD800", Comment="on Teams template", Caption = "Fusce quis purus eu ante", FillStyle=BlazorCalendar.FillStyleEnum.BackwardDiagonal },
+			new Tasks { ID = ++i, DateStart = today.AddDays(50), DateEnd = today.AddDays(52), Code = "DEV2", Color = "#FFD800", Comment="on Teams template", Caption = "Fusce quis purus eu ante", FillStyle=BlazorCalendar.FillStyleEnum.BackwardDiagonal },
+
 		};
 	}
 
