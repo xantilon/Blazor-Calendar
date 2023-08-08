@@ -1,6 +1,7 @@
 ﻿@using BlazorCalendar.Models;
 @using BlazorCalendar.Styles;
 
+<TasksTooltip Task="@t">
 <div id="task-@t.ID" class="@($"task {classPin} {classPointer} {borderStyle}")" 
     style="@taskColor" title="@t.Comment">
     @*@onclick="e => ClickInternal(e, j)"
@@ -8,6 +9,7 @@
     draggable="@draggable.ToString()"*@
     @taskContent
 </div>
+</TasksTooltip>
 
 @code {
     [Parameter]

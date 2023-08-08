@@ -31,4 +31,7 @@ public sealed class Tasks
     }
 
     public bool IncludesDay(DateTime day) => DateStart <= day && DateEnd >= day;
+    public bool IsFirstDay(DateTime day) => DateStart.Date == day.Date;
+    public bool IsLastDay(DateTime day) => DateEnd.Date == day.Date;
+    public bool IsSingleDay => DateStart.Date == DateEnd.Date;
 }

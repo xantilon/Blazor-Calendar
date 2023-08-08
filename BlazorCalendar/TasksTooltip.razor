@@ -1,0 +1,18 @@
+﻿@using BlazorCalendar.Models;
+<div class="tooltip-wrapper">
+    <span><em>@Task.Caption</em></span>
+    @if(Task.IsSingleDay)
+    {
+        <p>am @Task.DateStart.Date</p>
+    }
+    else
+    {
+        <p>von @Task.DateStart.Date.ToString("dd.MM.") bis @Task.DateEnd.Date.ToString("dd.MM.")</p>
+    }
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public Tasks Task { get; set; } = new();
+}
