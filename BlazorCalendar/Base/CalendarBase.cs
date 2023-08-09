@@ -45,4 +45,16 @@ public abstract class CalendarBase : ComponentBase
     /// </summary>
     [Parameter]
     public string SundayColor { get; set; } = "#DBE7F8";
+
+    /// <summary>
+    /// add a list of public holidays to display
+    /// </summary>
+    [Parameter]
+    public Dictionary<DateOnly, string> PublicHolidays { get; set; } = new();
+
+    /// <summary>
+    /// public hooliday background color
+    /// </summary>
+    [Parameter]
+    public string HolidayColor { get; set; } = "#e6af8f";
 }

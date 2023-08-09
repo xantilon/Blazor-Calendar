@@ -10,7 +10,7 @@ partial class AnnualView : CalendarBase
     [CascadingParameter(Name = "SelectedView")]
     public DisplayedView DisplayedView { get; set; } = DisplayedView.Annual;
 
-    private int _months = 11;
+    private int _months = 6;
     [Parameter]
     public int Months
     {
@@ -48,6 +48,10 @@ partial class AnnualView : CalendarBase
     public PriorityLabel PriorityDisplay { get; set; } = PriorityLabel.Code;
 
     [Parameter]
+    public bool HighlightToday { get; set; } = true;
+
+
+	[Parameter]
     public EventCallback<ClickTaskParameter> TaskClick { get; set; }
 
     [Parameter]

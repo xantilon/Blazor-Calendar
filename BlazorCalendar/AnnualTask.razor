@@ -1,9 +1,9 @@
 ﻿@using BlazorCalendar.Models;
 @using BlazorCalendar.Styles;
 
-<TasksTooltip Task="@t">
-<div id="task-@t.ID" class="@($"task {classPin} {classPointer} {borderStyle}")" 
-    style="@taskColor" title="@t.Comment">
+<TasksTooltip Task="@tasks">
+<div id="task-@tasks.ID" class="@($"task {classPin} {classPointer} {borderStyle}")" 
+    style="@taskColor" title="@tasks.Comment">
     @*@onclick="e => ClickInternal(e, j)"
     @ondragstart="() => HandleDragStart(j, t.ID)"
     draggable="@draggable.ToString()"*@
@@ -13,22 +13,22 @@
 
 @code {
     [Parameter]
-    public Tasks t { get; set; } = new();
+    public Tasks tasks { get; set; } = new();
 
     [Parameter]
-    public DateTime j { get; set; } = new();
+    public DateTime day { get; set; } = new();
 
-    [Parameter]
-    public PriorityLabel PriorityDisplay { get; set; } = PriorityLabel.Code;
+    [CascadingParameter(Name = "PriorityDisplay")]
+    public PriorityLabel PriorityDisplay { get; set; }
 
-    string? classPin => string.IsNullOrWhiteSpace(t.Comment) ? null : "pin";
+    string? classPin => string.IsNullOrWhiteSpace(tasks.Comment) ? null : "pin";
     string classPointer = "cursor-pointer";
 
-    string taskContent => t.GetTaskContent(PriorityDisplay);
-    string? fillStyle => Colors.GetHatching(t.FillStyle, t.Color);
-    string taskColor => $"{fillStyle};color:{t.ForeColor}";
+    string taskContent => tasks.GetTaskContent(PriorityDisplay);
+    string? fillStyle => Colors.GetHatching(tasks.FillStyle, tasks.Color);
+    string taskColor => $"{fillStyle};color:{tasks.ForeColor}";
 
-    string borderStyle => GetBorderStyle(t,j);
+    string borderStyle => GetBorderStyle(tasks,day);
 
     string GetBorderStyle(Tasks t, DateTime j)
     {

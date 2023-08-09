@@ -1,0 +1,115 @@
+﻿
+/*https://codepen.io/xantilon/pen/poQmPPg?editors=1100*/
+
+:root {
+    --task-columns: 5;
+    --month-columns: 6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+.calendar-container {
+    border: 1px solid #eee;
+    box-shadow: 3px 3px 9px 0px rgba(173,173,173,0.75);
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--month-columns), 1fr);
+    grid-template-rows: 20px repeat(25px, 31);
+}
+
+.month-column {
+    display: grid;
+    grid-gap: 0px 2px;
+    grid-template-columns: auto repeat(var(--task-columns), 1fr);
+    grid-template-rows: repeat(32, 1fr);
+    border-right: 1px solid lightgray;
+    /*--c: linear-gradient(#d6d8db,#d6d8db);
+    --p: -1px;
+    --w: 100%;*/ /*calc(100% - 2*var(--p));*/
+    /*--m: 32;
+    background:*/
+    /* horizontal lines*/
+        /*var(--c) var(--p) calc(1 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px, 
+        var(--c) var(--p) calc(2 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px, 
+        var(--c) var(--p) calc(3 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(4 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(5 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(6 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(7 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(8 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(9 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(10 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(11 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(12 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(13 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(14 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(15 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(16 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(17 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(18 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(19 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(20 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(21 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(22 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(23 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(24 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(25 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(26 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(27 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(28 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(29 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(30 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
+        var(--c) var(--p) calc(31 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px;
+    padding: calc(--p);
+    background-repeat: no-repeat;
+    background-color: #fff;*/
+}
+
+.month-label {
+    grid-column: 1 / span calc(var(--task-columns) + 1);
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: #72777b;
+    text-align: center;
+    border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+    line-height: 6vh;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: #FFF;
+}
+
+.day {
+    grid-column: 1;
+    font-size: 0.8em;
+    color: #72777b;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 6px 3px;
+    align-self: stretch center;
+}
+
+
+.task {
+    background: lightgreen;
+    grid-row: calc(var(--day) + 1) / span var(--dur);
+    grid-column: var(--who);
+    text-align: center;
+    border: 1px solid #d6d8db;
+    border-width: 0.00vw 0.05vw 0.05vw 0.05vw;
+}
+
+.weekend1 {
+    background: #ECF4FD;
+}
+
+.weekend2 {
+    background: #DBE7F8;
+}

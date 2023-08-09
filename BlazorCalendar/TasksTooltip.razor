@@ -1,13 +1,12 @@
 ﻿@using BlazorCalendar.Models;
 <div class="tooltip-wrapper">
-    <span><em>@Task.Caption</em></span>
     @if(Task.IsSingleDay)
     {
-        <p>am @Task.DateStart.Date</p>
+    <span>@Task.Caption: am @Task.DateStart.Date</span>
     }
     else
     {
-        <p>von @Task.DateStart.Date.ToString("dd.MM.") bis @Task.DateEnd.Date.ToString("dd.MM.")</p>
+    <span>@Task.Caption: @Task.DateStart.Date.ToString("dd.MM.-")@Task.DateEnd.Date.ToString("dd.MM.")</span>
     }
     @ChildContent
 </div>

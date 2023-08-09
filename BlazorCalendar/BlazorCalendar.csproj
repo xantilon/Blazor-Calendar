@@ -19,6 +19,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AnnualTask.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AnnualTask.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\BlazorCalendar.css" />
   </ItemGroup>
 
