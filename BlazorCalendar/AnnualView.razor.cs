@@ -3,14 +3,14 @@
 using BlazorCalendar.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-
+using Microsoft.Extensions.Options;
 
 partial class AnnualView : CalendarBase
 {
     [CascadingParameter(Name = "SelectedView")]
     public DisplayedView DisplayedView { get; set; } = DisplayedView.Annual;
 
-    private int _months = 6;
+    private int _months = 1;
     [Parameter]
     public int Months
     {
@@ -21,7 +21,8 @@ partial class AnnualView : CalendarBase
         set
         {
             _months = value;
-            if (_months > 1) _months--;
+            if (_months < 1) _months=1;
+            if (_months > 12) _months=12;
         }
     }
 
@@ -40,11 +41,21 @@ partial class AnnualView : CalendarBase
         }
     }
 
-    [CascadingParameter(Name = "TasksList")]
-    public List<Tasks> TasksList { get; set; }
+	[CascadingParameter(Name = "TasksList")]
+    public List<Tasks> TasksList
+    {
+        get => _tasksList;
+        set {
+            _tasksList.Clear();
+            foreach(var t in value)
+            {
+                _tasksList.AddRange(t.SplitMonths());                
+            }
+        }
+    }
 
 
-    [Parameter]
+	[Parameter]
     public PriorityLabel PriorityDisplay { get; set; } = PriorityLabel.Code;
 
     [Parameter]
@@ -68,8 +79,9 @@ partial class AnnualView : CalendarBase
 
     private DateTime m = DateTime.Today;
     private Tasks? TaskDragged;
+	private List<Tasks> _tasksList = new();
 
-    private async Task ClickInternal(MouseEventArgs e, DateTime day)
+	private async Task ClickInternal(MouseEventArgs e, DateTime day)
     {
         if (day == default) return;
 

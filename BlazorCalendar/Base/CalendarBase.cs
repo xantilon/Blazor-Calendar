@@ -38,13 +38,13 @@ public abstract class CalendarBase : ComponentBase
     /// Allows the user to change the saturday background color
     /// </summary>
     [Parameter]
-    public string SaturdayColor { get; set; } = "#ECF4FD";
+    public string SaturdayColor { get; set; } = "#bfbfbf";
 
     /// <summary>
     /// Allows the user to change the sunday background color
     /// </summary>
     [Parameter]
-    public string SundayColor { get; set; } = "#DBE7F8";
+    public string SundayColor { get; set; } = "#a5a5a5";
 
     /// <summary>
     /// add a list of public holidays to display

@@ -1,16 +1,14 @@
 ﻿
 /*https://codepen.io/xantilon/pen/poQmPPg?editors=1100*/
 
-:root {
-    --task-columns: 5;
-    --month-columns: 6;
-}
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    /*--task-columns: 7;
+    --month-columns: 3;*/
+    
 }
 
 .calendar-container {
@@ -18,23 +16,21 @@
     box-shadow: 3px 3px 9px 0px rgba(173,173,173,0.75);
     height: 100%;
     display: grid;
-    grid-template-columns: repeat(var(--month-columns), 1fr);
-    grid-template-rows: 20px repeat(25px, 31);
+    grid-template-columns: repeat(var(--month-columns), 1fr);    
 }
 
 .month-column {
+    --c: linear-gradient(#d6d8db,#d6d8db);
+    --p: -1px;
+    --w: 100%; 
+    --m: 32;
     display: grid;
     grid-gap: 0px 2px;
-    grid-template-columns: auto repeat(var(--task-columns), 1fr);
+    grid-template-columns: repeat(cals(var(--task-columns) + 1), 1fr);
     grid-template-rows: repeat(32, 1fr);
     border-right: 1px solid lightgray;
-    /*--c: linear-gradient(#d6d8db,#d6d8db);
-    --p: -1px;
-    --w: 100%;*/ /*calc(100% - 2*var(--p));*/
-    /*--m: 32;
-    background:*/
-    /* horizontal lines*/
-        /*var(--c) var(--p) calc(1 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px, 
+    background:     
+        var(--c) var(--p) calc(1 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px, 
         var(--c) var(--p) calc(2 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px, 
         var(--c) var(--p) calc(3 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
         var(--c) var(--p) calc(4 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
@@ -65,9 +61,9 @@
         var(--c) var(--p) calc(29 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
         var(--c) var(--p) calc(30 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px,
         var(--c) var(--p) calc(31 * (var(--w) / var(--m)) + var(--p)) / var(--w) 1px;
-    padding: calc(--p);
+    padding: calc(var(--p));
     background-repeat: no-repeat;
-    background-color: #fff;*/
+    background-color: #fff;
 }
 
 .month-label {
@@ -77,7 +73,7 @@
     color: #72777b;
     text-align: center;
     border-bottom: 1px solid rgba(166, 168, 179, 0.12);
-    line-height: 6vh;
+    line-height: 2.6vh;
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -86,20 +82,21 @@
 
 .day {
     grid-column: 1;
+    width: 100%;
     font-size: 0.8em;
     color: #72777b;
     word-wrap: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 6px 3px;
+    padding: 3px 3px;
     align-self: stretch center;
 }
 
 
 .task {
     background: lightgreen;
-    grid-row: calc(var(--day) + 1) / span var(--dur);
+    grid-row: var(--day) / span var(--dur);
     grid-column: var(--who);
     text-align: center;
     border: 1px solid #d6d8db;
@@ -107,9 +104,9 @@
 }
 
 .weekend1 {
-    background: #ECF4FD;
+    background: #bfbfbf; /*#ECF4FD;*/
 }
 
 .weekend2 {
-    background: #DBE7F8;
+    background: #a5a5a5;
 }

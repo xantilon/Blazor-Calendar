@@ -4,67 +4,65 @@
 @inherits CalendarBase
 
 @{
-    string labelMonth = "";
-    string labelDay = "";
-    string CSSbackground = "";
-    string taskContent = "";
-    string? taskColor = null;
-    string? taskComment = null;
-    string? classPin = null;
-    string? classPointer = null;
-    int tasksCounter;
-    bool draggable = false;
-    string? ondragover = null;
-    string? disabled = null;  
-   
-    bool NotbeDraggeble = false; 
-    string borderStyle = "";
-    
+	string labelMonth = "";
+	string CSSbackground = "";	
 }
-    <section class="calendar-container" style="@Style">
+<style>
+	* {
+		--month-columns: @Months;
+		--task-columns: 7;/* @(TasksList.GroupBy(g=>g.Key).Count() + 1); */
+	}
+</style>
 
-    @for (var month = 0; month <= Months; month++)
-    {
-        m = FirstDate.AddMonths(month);
-        var day = new DateTime(m.Year, m.Month, 1);
-        labelMonth = day.ToString("MMMM");
+<section class="calendar-container">
 
-        <div class="month-column">
-            <div class="month-label">@labelMonth</div>
-        
-            @for (var i = 0; i < 31; i++)
-            {
-                CSSbackground = "";
-                var j = day.AddDays(i);
-                int taskID = -1;
-                if (j.Month == m.Month)
-                {
-                    var d = j.DayOfWeek;
-                    if (d == DayOfWeek.Saturday)
-                        CSSbackground = $"background:{SaturdayColor}";
-                    if (d == DayOfWeek.Sunday)
-                        CSSbackground = $"background:{SundayColor}";
+	@for(var month = 0; month < Months; month++)
+	{
+		m = FirstDate.AddMonths(month);
+		var day = new DateTime(m.Year, m.Month, 1);
+		labelMonth = day.ToString("MMMM");
 
-                    PublicHolidays.TryGetValue(new DateOnly(j.Year, j.Month, j.Day), out string holiday);
+		<div class="month-column">
+			<div class="month-label">@labelMonth</div>
 
-                    if (!string.IsNullOrEmpty(holiday))
-                    {
-                        CSSbackground = $"background:{HolidayColor}";
-                    }
+			@for(var i = 0; i < DateTime.DaysInMonth(m.Year, m.Month); i++)
+			{
+				CSSbackground = "";
+				var j = day.AddDays(i);
 
-                    <div class="day" style="@CSSbackground" title="@holiday">@j.ToString("ddd") @j.Day</div>
+				var d = j.DayOfWeek;
+				if(d == DayOfWeek.Saturday)
+					CSSbackground = $"background:{SaturdayColor}";
+				if(d == DayOfWeek.Sunday)
+					CSSbackground = $"background:{SundayColor}";
+				string holiday = "";
+				if(PublicHolidays?.TryGetValue(new DateOnly(j.Year, j.Month, j.Day), out holiday) ?? false)
+				{
+					CSSbackground = $"background:{HolidayColor}";
+				}
 
-                }     
-            }
+				if(j == DateTime.Today)
+				{
+					CSSbackground += $" yearlytoday";
+				}
 
-            @foreach (var t in TasksList.Where(t=>t.DateStart.Month == m.Month).ToList())
-            {
-                
+				<div class="day" style="@CSSbackground" title="@holiday">@j.ToString("ddd") @j.Day</div>
 
-                <div class="task" style="--who:@t.Key;--day:@t.DateStart.Day;--dur:@t.Duration">EH</div>
-            }                  
-            
-        </div>
-    }
 
-    </section>
+			}
+			
+			<div class="task" style="--who:@(2);--day:@(1+1);--dur:2">TEST</div>
+			<div class="task" style="--who:@(3);--day:@(3+1);--dur:2">TEST</div>
+			<div class="task" style="--who:@(4);--day:@(4+1);--dur:2">TEST</div>
+			@* <div class="task" style="--who:@(5);--day:@(1+1);--dur:30">TEST</div> *@
+
+			@foreach(var t in TasksList.Where(t => t.DateStart.Month == m.Month).ToList())
+			{
+				<div class="task" style="--who:@(t.Key + 1);--day:@(@t.DateStart.Day + 1);--dur:@t.Duration">@t.Code</div> 
+			}
+
+		</div>
+		
+	}
+
+</section>

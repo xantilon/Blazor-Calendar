@@ -36,4 +36,48 @@ public sealed class Tasks
     public bool IsSingleDay => DateStart.Date == DateEnd.Date;
     public int Duration => (DateEnd-DateStart).Days;
 
+    public override string ToString()
+    {
+        //return $"Caption: {Caption}, Code: {Code}, Color: {Color}, ForeColor: {ForeColor}, FillStyle: {FillStyle}, Comment: {Comment}, DateStart: {DateStart}, DateEnd: {DateEnd}, Type: {Type}";
+        return $"Key: {Key}, Caption: {Caption}, Code: {Code}, Comment: {Comment}, Type: {Type}";
+    }
+
+	// Split a task into multiple tasks if it spans multiple months
+	public IEnumerable<Tasks> SplitMonths()
+	{
+		var monthDifference = ((DateEnd.Year - DateStart.Year) * 12) + DateEnd.Month - DateStart.Month;
+
+		for(var i = 0; i <= monthDifference; i++)
+		{
+			var start = DateStart.AddMonths(i);
+			if(i != 0)
+			{
+				start = new DateTime(start.Year, start.Month, 1);
+			}
+
+			var end = new DateTime(start.Year, start.Month, DateTime.DaysInMonth(start.Year, start.Month));
+			if(i == monthDifference)
+			{
+				end = DateEnd;
+			}
+
+            yield return new Tasks 
+            {
+                ID = ID,
+                Key = Key,
+                Caption = Caption,
+                Code = Code,
+                Color = Color,
+                ForeColor = ForeColor,
+                FillStyle = FillStyle,
+                Comment = Comment,
+                DateStart = start,
+                DateEnd = end,
+                NotBeDraggable = NotBeDraggable,
+                Type = Type
+            };
+		}
+	}
+	
+    
 }
